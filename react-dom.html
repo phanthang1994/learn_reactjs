@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const divReact = React.createElement(
+        "div",
+        {
+          className: "post-item",
+          // onMouseOver: () => {"hello tăng"},
+          // onClick: () => {
+          //     alert('Clicked!')
+          // },
+          style: {
+            // backgroundColor: 'blue',
+            padding: "20px",
+          },
+          title: "Post Item",
+        },
+        React.createElement(
+          "h2",
+          {
+            className: "post-title",
+
+            title: "Học ReactJS từ cơ bản đến nâng cao",
+          },
+          "Học ReacJs"
+        ),
+        React.createElement("p", null, "ReactJS từ cơ bản đến nâng cao")
+      );
+      // react 17
+      // console.log("divReact", divReact)
+      // const root = document.getElementById('root')
+      // ReactDOM.render(divReact, root)
+      // react 18
+      // Kiểm tra kết quả ra console
+      console.log("divReact", divReact);
+
+      // Lấy phần tử root
+      const rootElement = document.getElementById("root");
+
+      // Tạo một root mới và render UI
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(divReact);
+    </script>
+  </body>
+</html>

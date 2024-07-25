@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+</head>
+<body>
+    <h1>Hello Guys</h1>
+    <script>
+        const h1ReactDom = React.createElement('h1',{
+            title: 'Hello',
+            className: 'heading'
+        }, 'Hello react')
+        // console.log("h1ReactDom", h1ReactDom)
+        const ulReact = React.createElement(
+            'ul',
+            {
+                id:'ul-id',
+                style: 'color: red; font-size: 30px'
+
+            },
+            React.createElement('li', null, 'Javascript'),
+            React.createElement('li', null, 'ReacJs')
+        )
+        // console.log("ulReact", ulReact)
+        const divReact = React.createElement(
+            'div',
+            {
+                className: 'post-item',
+                onMouseOver: () => {"hello tăng"},            
+                onClick: () => {
+                    alert('Clicked!')
+                },
+                style: {
+                    backgroundColor: 'blue',
+                    padding: '20px'
+                },
+                title: 'Post Item'
+            },
+            React.createElement('h2', {
+                className: 'post-title',
+                style: {
+                    color: 'blue'
+                },
+                title: "Học ReactJS từ cơ bản đến nâng cao"
+            },
+            'Học ReacJs'
+        ),
+            React.createElement('p',null,'ReactJS từ cơ bản đến nâng cao')
+        )
+        console.log("divReact", divReact)
+    </script>
+</body>
+</html>
