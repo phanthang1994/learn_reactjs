@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function PostItem(){
+            return (
+            <div className="post-item">
+                <img  src="https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb607b4b.png" />
+                <h2 className="post-title">C# (.NET) - Tương tác với cơ sở dữ liệu</h2>
+                <p className="post-desc">Bạn có kiến thức ngôn ngữ lập trình C# và muốn tìm hiểu về cách tương tác với cơ sở dữ liệu?</p>
+                <p className="post-published">Một ngày trước · 5 phút đọc</p>
+             </div>
+            )
+        }
+    const app = (
+    <div className="posts-list">
+        <PostItem/>  
+    </div>  
+);
+
+    // Render the app
+    const rootEle = document.getElementById("root");
+    const root = ReactDOM.createRoot(rootEle);
+    root.render(app);
+
+</script>
+</body>
+</html>
