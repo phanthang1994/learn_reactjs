@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      // thông thườn ta sẽ render ra nhiều component <List/>
+      // mỗi component List là 1 thẻ <li></li>
+      // còn cách này thì sẽ render ra 1 thẻ List vs nhiều thẻ li bên trong
+      // function List({ data, children }) {
+      //   console.log(children);
+      //   return <ul>{data.map((item) => children(item))}</ul>; // <=> {data.map((item) =>  <li>{item}</li> 
+      // }
+      function List({ data, children }) {
+        console.log(children);
+        return <ul>{data.map(children)}</ul>; // <=> {data.map((item) =>  <li>{item}</li> 
+      }
+
+      function App() {
+        const cars = ["BMW", "Honda", "Mazda"];
+
+        return (
+          <div id="wrapper">
+            <List data={cars}>
+              {(item,index) => <li key = {index}>{item}</li>}
+              </List>
+          </div>
+        );
+      }
+      const rootEle = document.getElementById("root");
+      const root = ReactDOM.createRoot(rootEle);
+      root.render(<App />);
+    </script>
+  </body>
+</html>

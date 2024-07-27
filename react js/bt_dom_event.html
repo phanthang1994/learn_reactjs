@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const posts = [
+      {
+        userId: 1,
+        id: 1,
+        title:
+          "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+        body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+      },
+      {
+        userId: 1,
+        id: 2,
+        title: "qui est esse",
+        body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
+      },
+      {
+        userId: 1,
+        id: 3,
+        title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+        body: "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut",
+      },
+    ];
+
+    function PostItem({ userId, id, title, body, cb }) {
+      return (
+        <div className="post-item">
+          <p className="post-published" onClick={()=>cb(body)}>{body}</p>
+          <p>-------------------------------------------------</p>
+        </div>
+      );
+      // ít dùng
+      // return (
+      //   <div className="post-item">
+      //     <p className="post-published" onClick={()=>console.log(body)}>{body}</p>
+      //     <p>-------------------------------------------------</p>
+      //   </div>
+      // )
+    }
+
+    const app = (
+      <div className="posts-list">
+        {posts.map(
+          function (post) {
+            return (
+              <PostItem
+                key={post.id} 
+                userId={post.userId}
+                id={post.id}
+                title={post.title}
+                body={post.body}
+                cb = {function callback(params) {
+                    console.log(params)
+                }}
+              />
+            )
+          }
+
+        )}
+      </div>
+    );
+    console.log(app)
+
+    // Render the app
+    const rootEle = document.getElementById("root");
+    const root = ReactDOM.createRoot(rootEle);
+    root.render(app);
+  </script>
+</body>
+
+</html>
