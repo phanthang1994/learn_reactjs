@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Content from './Content';
 
 // export default function Counter() {
 //   const [count, setCount] = useState(0);
@@ -225,35 +226,56 @@ import { useState } from 'react';
 //     </div>
 //   )
 // }
-function App(){
-  const [jobList, setJobList] = useState(()=>JSON.parse(localStorage.getItem('jobList'))?? [])
-  const [job, setJob] = useState()
-  console.log(jobList)
-  function handleSubmit(){
-    setJobList(prev => {
-      var newJobs = [...prev, job]
-      const jsonJobs = JSON.stringify(newJobs)
-      localStorage.setItem('jobList', jsonJobs)
-      return newJobs
-    })
-    setJob('')
-  }
+// function App(){
+//   const [jobList, setJobList] = useState(()=>JSON.parse(localStorage.getItem('jobList'))?? [])
+//   const [job, setJob] = useState()
+//   console.log(jobList)
+//   function handleSubmit(){
+//     setJobList(prev => {
+//       var newJobs = [...prev, job]
+//       const jsonJobs = JSON.stringify(newJobs)
+//       localStorage.setItem('jobList', jsonJobs)
+//       return newJobs
+//     })
+//     setJob('')
+//   }
+//   return (
+//     <div style={{ padding: 32 }}>
+    
+//       <input 
+//         value={job}
+//         onChange={e => setJob(e.target.value)}
+//         placeholder="Job Name"
+//       />
+//       <button onClick={handleSubmit}>Add</button>
+//       <ul>
+//         {jobList.map((job, index) => (
+//           <li key={index}>{job}</li>
+//         ))}
+//       </ul>
+    
+//     </div>
+//   )
+// }
+
+// function App() {
+//   const [show, setShow] = useState(false);
+//   return (
+//     <div style={{ padding: 32 }}>
+//     <button onClick={()=>setShow(!show)}>Toggle</button>
+//       {show && <Content/>}
+//     </div>
+//   )
+// }
+
+function App() {
+  const [show, setShow] = useState(false);
   return (
     <div style={{ padding: 32 }}>
-    
-      <input 
-        value={job}
-        onChange={e => setJob(e.target.value)}
-        placeholder="Job Name"
-      />
-      <button onClick={handleSubmit}>Add</button>
-      <ul>
-        {jobList.map((job, index) => (
-          <li key={index}>{job}</li>
-        ))}
-      </ul>
-    
+    <button onClick={()=>setShow(!show)}>Toggle</button>
+      {show && <Content/>}
     </div>
   )
 }
+
 export default App;

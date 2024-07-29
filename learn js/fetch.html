@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <div>
+        <label>Name</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div>
+        <label>Description</label>
+        <input type="text" name="Description" />
+      </div>
+      <div>
+        <button id="create">Create</button>
+      </div>
+    </div>
+
+    <script>
+      function createCourse(dataForm, callback) {
+        var options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataForm),
+        };
+
+        fetch(coursesApi, options)
+          .then(function (resp) {
+            return resp.json();
+          })
+          .then(callback);
+      }
+
+      function handleDeleteCourse(id) {
+        fetch(coursesApi + "/" + id, { method: "DELETE" }).then(
+          console.log("Xóa course thành công")
+        );
+        document.querySelector(`.course-item-${id}`).remove();
+      }
+
+      function updateCourse(id) {
+        fetch(coursesApi + "/" + id)
+          .then((resp) => resp.json())
+          .then((course) => handleUpdateCourse(course));
+      }
+
+      function handleUpdateCourse(course) {
+        var name = document.querySelector('input[name="name"]');
+        var description = document.querySelector('input[name="description"]');
+        name.value = course.name;
+        description.value = course.description;
+        var createBtn = document.querySelector("#create");
+        createBtn.innerText = "Save";
+        createBtn.onclick = () => {
+          var dataForm = {
+            name: name.value,
+            description: description.value,
+          };
+
+          fetch(coursesApi + "/" + course.id, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataForm),
+          })
+            .then((resp) => resp.json())
+            .then((course) => {
+              document.querySelector(
+                `.course-item-${course.id}`
+              ).innerHTML = `<h4>${course.name}</h4>
+                    <p>${course.description}</p>
+                    <button onclick="handleDeleteCourse(${course.id})">Delete</button>
+                    <button onclick="updateCourse(${course.id})">Update</button>
+                    <br><br>
+                    `;
+              name.value = "";
+              description.value = "";
+              createBtn.innerText = "Create";
+              handleCreateForm();
+            });
+        };
+      }
+    </script>
+  </body>
+</html>
