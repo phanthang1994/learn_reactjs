@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 
 // export default function Counter() {
 //   const [count, setCount] = useState(0);
@@ -68,7 +68,7 @@
 //   );
 // }
 
-
+// https://www.youtube.com/watch?v=CVaEWBFpxhc&list=PL_-VfJajZj0UXjlKfBwFX73usByw3Ph9Q&index=30
 // import React, { useState } from 'react';
 
 // const gifts = [
@@ -93,32 +93,136 @@
 //   );
 // }
 // export default App;
+// https://www.youtube.com/watch?v=CVaEWBFpxhc&list=PL_-VfJajZj0UXjlKfBwFX73usByw3Ph9Q&index=30
+// import React, { useState } from 'react';
 
-import React, { useState } from 'react';
+// function App() {
+//   const [name, setName] = useState('');
+//   const [email, setEmail] = useState('');
 
-function App() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+//   const handleSubmit = () => {
+//    console.log(`Name: ${name}, Email: ${email}`);
+//   };
 
-  const handleSubmit = () => {
-   console.log(`Name: ${name}, Email: ${email}`);
-  };
+//   return (
+//     <div style={{ padding: 32 }}>
+//       <input 
+//         value={name} 
+//         onChange={e => setName(e.target.value)} 
+//         placeholder="Name"
+//       />
+//       <input 
+//         value={email} 
+//         onChange={e => setEmail(e.target.value)} 
+//         placeholder="Email"
+//       />
+//       <button onClick={handleSubmit}>Register</button>
+//     </div>
+//   );
+// }
 
+// export default App;
+// https://www.youtube.com/watch?v=CVaEWBFpxhc&list=PL_-VfJajZj0UXjlKfBwFX73usByw3Ph9Q&index=30
+// function App() {  
+//   const [name, setName] = useState('');  
+
+//   return (  
+//     <div style={{ padding: 32 }}>  
+//       <input  
+//         value={name}  
+//         onChange={e => setName(e.target.value)}  
+//       />  
+//       <button onClick={() => setName('Nguyen Van BBB')}>Change</button>  
+//     </div>  
+//   );  
+// }  
+
+// export default App;
+
+// https://www.youtube.com/watch?v=CVaEWBFpxhc&list=PL_-VfJajZj0UXjlKfBwFX73usByw3Ph9Q&index=30
+const courses = [
+  {
+    id: 1,
+    name: 'HTML',
+    coin: 200,
+    description: 'Learn HTML to build websites'
+  },
+  {
+    id: 2,
+    name: 'CSS',
+    coin: 300,
+    description: 'Learn CSS to style your websites'
+  },
+  {
+    id: 3,
+    name: 'Javascript',
+    coin: 400,
+    description: 'Learn Javascript to create interactive websites'
+  }
+]
+
+// function App(){
+//   const [checked, setChecked] = useState(2)
+//   // console.log(checked)
+//   function handleSubmit(){
+//     console.log({id: checked})
+//   }
+//   return (
+//     <div style={{ padding: 32 }}>
+//     {
+//       courses.map(
+//         course => (
+//           <div key={course.id}>
+//             <input
+//               type="radio"
+//               checked = {checked===course.id}
+//               onChange={()=> setChecked(course.id)}
+//             />
+//             {course.name}
+//             <button onClick={handleSubmit}>Register</button>
+//           </div>
+//         )
+//     )
+//     }
+//     </div>
+//   )
+// }
+
+function App(){
+  const [checked, setChecked] = useState([])
+  console.log(checked)
+  function handleChecked(id){
+    setChecked(
+      checked => {
+        if(checked.includes(id)){
+          return checked.filter(item => item!== id)
+        }else{
+          return [...checked, id]
+        }
+      }
+    )
+  }
+  function handleSubmit(){
+    console.log({id: checked})
+  }
   return (
     <div style={{ padding: 32 }}>
-      <input 
-        value={name} 
-        onChange={e => setName(e.target.value)} 
-        placeholder="Name"
-      />
-      <input 
-        value={email} 
-        onChange={e => setEmail(e.target.value)} 
-        placeholder="Email"
-      />
-      <button onClick={handleSubmit}>Register</button>
+    {
+      courses.map(
+        course => (
+          <div key={course.id}>
+            <input
+              type="checkbox"
+              checked = {checked.includes(course.id)}
+              onChange={()=> handleChecked(course.id)}
+            />
+            {course.name}
+            <button onClick={handleSubmit}>Register</button>
+          </div>
+        )
+    )
+    }
     </div>
-  );
+  )
 }
-
 export default App;
