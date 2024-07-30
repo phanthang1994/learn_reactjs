@@ -152,20 +152,38 @@ import { useEffect, useState } from "react";
 //   );
 // }
 
+// function Content() {
+//   const [width, setWidth] = useState(window.innerWidth);
+//   useEffect(() => {
+//     const handleResize = () => {
+//       setWidth(window.innerWidth);
+//     }
+//     window.addEventListener("resize", handleResize);
+//     // clean up function to prevent memory leaks:  // Remove event listener when component unmounts
+//     return () => window.removeEventListener("resize", handleResize);
+//   },[])
+//   return (
+//     <div>
+//       <h1>
+//         {width}
+//       </h1>
+//     </div>
+//   )
+// }
+
 function Content() {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [countdown, setCountdown] = useState(180);
   useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    }
-    window.addEventListener("resize", handleResize);
-    // clean up function to prevent memory leaks:  // Remove event listener when component unmounts
-    return () => window.removeEventListener("resize", handleResize);
-  },[])
+    const timer = setInterval(() => {
+     setCountdown(prev => prev - 1);
+    }, 1000);
+    // clean up function to prevent memory leaks:  // Remove interval when component unmounts
+    return () => clearInterval(timer);
+  })
   return (
     <div>
       <h1>
-        {width}
+        Countdown: {countdown} seconds
       </h1>
     </div>
   )
