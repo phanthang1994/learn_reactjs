@@ -98,7 +98,6 @@ import { useEffect, useState } from "react";
 //   );
 // }
 
-
 // const tabs = ["posts", "comments", "albums"];
 // function Content() {
 //   const [posts, setPosts] = useState([]);
@@ -171,22 +170,43 @@ import { useEffect, useState } from "react";
 //   )
 // }
 
+// function Content() {
+//   const [countdown, setCountdown] = useState(180);
+//   useEffect(() => {
+//     const timer = setInterval(() => {
+//      setCountdown(prev => prev - 1);
+//     }, 1000);
+//     // clean up function to prevent memory leaks:  // Remove interval when component unmounts
+//     return () => clearInterval(timer);
+//   })
+//   return (
+//     <div>
+//       <h1>
+//         Countdown: {countdown} seconds
+//       </h1>
+//     </div>
+//   )
+// }
+
 function Content() {
-  const [countdown, setCountdown] = useState(180);
+  const [avatar, setAvatar] = useState(null);
   useEffect(() => {
-    const timer = setInterval(() => {
-     setCountdown(prev => prev - 1);
-    }, 1000);
-    // clean up function to prevent memory leaks:  // Remove interval when component unmounts
-    return () => clearInterval(timer);
-  })
+  
+    return () => {
+      avatar && URL.revokeObjectURL(avatar.preview); // Release the memory occupied by the preview image URL
+    }
+  },[avatar])
+  const handlePreviewAvatar = (e) => {
+    const file = e.target.files[0];
+    file.preview = URL.createObjectURL(file); // Display the selected image preview
+    setAvatar(file); // Set the selected image file for further processing or upload to the server.
+
+  };
   return (
     <div>
-      <h1>
-        Countdown: {countdown} seconds
-      </h1>
+      <input type="file" multiple onChange={handlePreviewAvatar} />
+      {avatar && <img src={avatar.preview} alt="avatar" />}
     </div>
-  )
+  );
 }
-
 export default Content;
