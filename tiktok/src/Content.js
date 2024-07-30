@@ -66,36 +66,109 @@ import { useEffect, useState } from "react";
 //   );
 // }
 
-const tabs = ["posts", "comments", "albums"];
+// const tabs = ["posts", "comments", "albums"];
+// function Content() {
+//   const [title, setTitle] = useState("");
+//   const [posts, setPosts] = useState([]);
+//   const [type, setType] = useState(tabs[0]);
+//   useEffect(() => {
+//     console.log(`https://jsonplaceholder.typicode.com/${type}`);
+//     fetch(`https://jsonplaceholder.typicode.com/${type}`)
+//       .then((response) => response.json())
+//       .then((data) => setPosts(data));
+//   }, [type]);
+//   return (
+//     <div>
+//       {tabs.map((tab, index) => (
+//         <button
+//           key={index}
+//           style={type === tab ? { color: "#fff", backgroundColor: "#333" } : {}}
+//           onClick={() => setType(tabs[index])}
+//         >
+//           {tab}
+//         </button>
+//       ))}
+//       <input value={title} onChange={(e) => setTitle(e.target.value)} />
+//       <ul>
+//         {posts.map((post) => (
+//           <li key={post.id}>{post.title || post.name}</li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
+
+
+// const tabs = ["posts", "comments", "albums"];
+// function Content() {
+//   const [posts, setPosts] = useState([]);
+//   const [type, setType] = useState(tabs[0]);
+//   const [showGoToTop, setShowGoToTop] = useState(false);
+//   useEffect(() => {
+//     console.log(`https://jsonplaceholder.typicode.com/${type}`);
+//     fetch(`https://jsonplaceholder.typicode.com/${type}`)
+//       .then((response) => response.json())
+//       .then((data) => setPosts(data));
+//   }, [type]);
+//   useEffect(() => {
+//     window.addEventListener("scroll", () => {
+//       console.log(window.scrollY);
+//       if (window.scrollY > 200) {
+//         setShowGoToTop(true);
+//       } else {
+//         setShowGoToTop(false);
+//       }
+//       return () => {
+//         window.removeEventListener("scroll");
+//       }
+//     }
+//   );
+//   },[]);
+//   return (
+//     <div>
+//       {tabs.map((tab, index) => (
+//         <button
+//           key={index}
+//           style={type === tab ? { color: "#fff", backgroundColor: "#333" } : {}}
+//           onClick={() => setType(tabs[index])}
+//         >
+//           {tab}
+//         </button>
+//       ))}
+//       <ul>
+//         {posts.map((post) => (
+//           <li key={post.id}>{post.title || post.name}</li>
+//         ))}
+//       </ul>
+//       {showGoToTop && (
+//         <button
+//           style={{ position: "fixed", right: 20, bottom: 20 }}
+//           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+//         >
+//           Go to top
+//         </button>
+//       )}
+//     </div>
+//   );
+// }
+
 function Content() {
-  const [title, setTitle] = useState("");
-  const [posts, setPosts] = useState([]);
-  const [type, setType] = useState(tabs[0]);
+  const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
-    console.log(`https://jsonplaceholder.typicode.com/${type}`);
-    fetch(`https://jsonplaceholder.typicode.com/${type}`)
-      .then((response) => response.json())
-      .then((data) => setPosts(data));
-  }, [type]);
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    // clean up function to prevent memory leaks:  // Remove event listener when component unmounts
+    return () => window.removeEventListener("resize", handleResize);
+  },[])
   return (
     <div>
-      {tabs.map((tab, index) => (
-        <button
-          key={index}
-          style={type === tab ? { color: "#fff", backgroundColor: "#333" } : {}}
-          onClick={() => setType(tabs[index])}
-        >
-          {tab}
-        </button>
-      ))}
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.title || post.name}</li>
-        ))}
-      </ul>
+      <h1>
+        {width}
+      </h1>
     </div>
-  );
+  )
 }
 
 export default Content;
