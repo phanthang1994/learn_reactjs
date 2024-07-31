@@ -279,14 +279,14 @@ import Content from "./Content";
 // }
 
 // useRef() hook
-// function App() {  
-//   const [count, setCount] = useState(60)  
+// function App() {
+//   const [count, setCount] = useState(60)
 //   const timerId = useRef()
 //   const preCount = useRef()
 //   const h1Ref = useRef()
 
-//   useEffect(() => {  
-//     preCount.current = count  
+//   useEffect(() => {
+//     preCount.current = count
 //   }, [count])
 
 //   useEffect(() => {
@@ -295,26 +295,52 @@ import Content from "./Content";
 //     console.log('Rect:', rect)
 //   })
 
-//   const handleStart = () => {  
-//     timerId.current = setInterval(() => {  
-//       setCount(prevCount => prevCount - 1)  
-//     }, 1000)  
+//   const handleStart = () => {
+//     timerId.current = setInterval(() => {
+//       setCount(prevCount => prevCount - 1)
+//     }, 1000)
 
-//     console.log('Start =>', timerId.current)  
-//   }  
+//     console.log('Start =>', timerId.current)
+//   }
 
-//   const handleStop = () => {  
-//     clearInterval(timerId.current)  
-//     console.log('Stop =>', timerId.current)  
-//   }  
+//   const handleStop = () => {
+//     clearInterval(timerId.current)
+//     console.log('Stop =>', timerId.current)
+//   }
 //   console.log(count, preCount.current)
-//   return (  
-//     <div style={{ padding: 20 }}>  
-//       <h1 ref={h1Ref}>{count}</h1>  
-//       <button onClick={handleStart}>Start</button>  
-//       <button onClick={handleStop}>Stop</button>  
-//     </div>  
-//   )  
+//   return (
+//     <div style={{ padding: 20 }}>
+//       <h1 ref={h1Ref}>{count}</h1>
+//       <button onClick={handleStart}>Start</button>
+//       <button onClick={handleStop}>Stop</button>
+//     </div>
+//   )
 // }
+
+//============================================
+// React.memo() HOC
+
+// 1. memo() -> Higher Order Component (HOC)
+// 2. useCallback()
+
+// Hooks
+// HOC
+// Render props
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  const increase = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div style={{ padding: "10px 32px" }}>
+      <Content count={count} />
+      <h1>{count}</h1>
+      <button onClick={increase}>Click me!</button>
+    </div>
+  );
+}
 
 export default App;

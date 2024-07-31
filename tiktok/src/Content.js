@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 // function Content() {
 //     const [ttile, setTitle] = useState('');
@@ -264,6 +264,12 @@ import { useEffect, useState } from "react";
 //   );
 // }
 function Content() {
-  
+  console.log("Content component rendered");
+  return (
+    <div>
+      <h1>Content Component</h1>
+    </div>
+  );
 }
-export default Content;
+
+export default memo(Content);
