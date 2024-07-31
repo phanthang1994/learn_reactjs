@@ -8,7 +8,7 @@ import Content from "./Content";
 //     setCount(prevCount => prevCount + 1);
 //     setCount(prevCount => prevCount + 1);
 //     setCount(prevCount => prevCount + 1);
-      // console.log("Chir re-gender 1 lần");
+      // console.log(" Chỉ re-gender 1 lần");
 //   }
 
 
@@ -328,7 +328,7 @@ import Content from "./Content";
 // Hooks
 // HOC
 // Render props
-
+//useCallback
 function App() {
   const [count, setCount] = useState(0);
 
