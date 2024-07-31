@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Content from "./Content";
 
 // export default function Counter() {
@@ -8,8 +8,10 @@ import Content from "./Content";
 //     setCount(prevCount => prevCount + 1);
 //     setCount(prevCount => prevCount + 1);
 //     setCount(prevCount => prevCount + 1);
-
+      // console.log("Chir re-gender 1 lần");
 //   }
+
+
 //   const increment = () => {
 //     // dùng thông thư��ng
 //     setCount(count + 1);
@@ -330,15 +332,15 @@ import Content from "./Content";
 function App() {
   const [count, setCount] = useState(0);
 
-  const increase = () => {
-    setCount(count + 1);
-  };
+  const handleIncrease = useCallback( () => {
+    setCount(pre => pre + 1);
+  },[])
 
   return (
     <div style={{ padding: "10px 32px" }}>
-      <Content count={count} />
+      <Content onIncrease={handleIncrease} />
       <h1>{count}</h1>
-      <button onClick={increase}>Click me!</button>
+     
     </div>
   );
 }

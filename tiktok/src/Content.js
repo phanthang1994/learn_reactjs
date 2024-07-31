@@ -263,12 +263,13 @@ import { memo, useEffect, useState } from "react";
 //     </div>
 //   );
 // }
-function Content() {
+function Content({onIncrease}) {
   console.log("Content component rendered");
   return (
-    <div>
-      <h1>Content Component</h1>
-    </div>
+   <>
+    <h1>Hello, World!</h1>
+     <button onClick={onIncrease}>Click me!</button>
+   </>
   );
 }
 
