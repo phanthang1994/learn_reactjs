@@ -278,6 +278,7 @@ import Content from "./Content";
 //   );
 // }
 
+// useRef() hook
 function App() {  
   const [count, setCount] = useState(60)  
   const timerId = useRef()
