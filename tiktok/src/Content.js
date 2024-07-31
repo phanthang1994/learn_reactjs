@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 
 // function Content() {
 //     const [ttile, setTitle] = useState('');
@@ -263,14 +263,24 @@ import { memo, useEffect, useState } from "react";
 //     </div>
 //   );
 // }
-function Content({onIncrease}) {
-  console.log("Content component rendered");
+// ====================================================
+//useCallback
+// function Content({onIncrease}) {
+//   console.log("Content component rendered");
+//   return (
+//    <>
+//     <h1>Hello, World!</h1>
+//      <button onClick={onIncrease}>Click me!</button>
+//    </>
+//   );
+// }
+// ========================================================
+// useMemo
+function Content({ onIncrease }) {
   return (
-   <>
-    <h1>Hello, World!</h1>
-     <button onClick={onIncrease}>Click me!</button>
-   </>
+    <div>
+      <button onClick={onIncrease}>Increase</button>
+    </div>
   );
 }
-
 export default memo(Content);

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Content from "./Content";
 
 // export default function Counter() {
@@ -8,9 +8,8 @@ import Content from "./Content";
 //     setCount(prevCount => prevCount + 1);
 //     setCount(prevCount => prevCount + 1);
 //     setCount(prevCount => prevCount + 1);
-      // console.log(" Chỉ re-gender 1 lần");
+// console.log(" Chỉ re-gender 1 lần");
 //   }
-
 
 //   const increment = () => {
 //     // dùng thông thư��ng
@@ -329,18 +328,71 @@ import Content from "./Content";
 // HOC
 // Render props
 //useCallback
+// function App() {
+//   const [count, setCount] = useState(0);
+
+//   const handleIncrease = useCallback( () => {
+//     setCount(pre => pre + 1);
+//   },[])
+
+//   return (
+//     <div style={{ padding: "10px 32px" }}>
+//       <Content onIncrease={handleIncrease} />
+//       <h1>{count}</h1>
+
+//     </div>
+//   );
+// }
+
+//========================================
+// useMemo
 function App() {
-  const [count, setCount] = useState(0);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [products, setProducts] = useState([]);
+  const nameRef = useRef();
 
-  const handleIncrease = useCallback( () => {
-    setCount(pre => pre + 1);
-  },[])
+  const handleSubmit = () => {
+    setProducts([...products, { name, price: +price }]);
+    setName("");
+    setPrice("");
+    nameRef.current.focus();
+  };
 
+  const total = useMemo(() => {
+    const result = products.reduce((result, prod) => {
+      console.log("Tính toán lại...");
+      return result + prod.price;
+    }, 0);
+    return result;
+  }, [products]);
+
+  console.log(products);
   return (
     <div style={{ padding: "10px 32px" }}>
-      <Content onIncrease={handleIncrease} />
-      <h1>{count}</h1>
-     
+      <input
+      ref={nameRef}
+        value={name}
+        placeholder="Enter name..."
+        onChange={(e) => setName(e.target.value)}
+      />
+      <br />
+      <input
+        value={price}
+        placeholder="Enter price..."
+        onChange={(e) => setPrice(e.target.value)}
+      />
+      <br />
+      <button onClick={handleSubmit}>Add</button>
+      <br />
+      Total:{total}
+      <ul>
+        {products.map((product, index) => (
+          <li key={index}>
+            {product.name} - {product.price}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
