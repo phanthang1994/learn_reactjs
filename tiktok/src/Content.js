@@ -234,6 +234,7 @@ import { useEffect, useState } from "react";
 //     </div>
 //   );
 // }
+import {memo } from "react";
 function Content() {
   const [avatar, setAvatar] = useState("");
   const handlePreviewAvatar = (e) => {
@@ -263,4 +264,4 @@ function Content() {
     </div>
   );
 }
-export default Content;
+export default memo(Content);
