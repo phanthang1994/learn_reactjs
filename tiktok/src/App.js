@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import Content from './Content';
+import { useState } from "react";
+import Content from "./Content";
 
 // export default function Counter() {
 //   const [count, setCount] = useState(0);
@@ -107,14 +107,14 @@ import Content from './Content';
 
 //   return (
 //     <div style={{ padding: 32 }}>
-//       <input 
-//         value={name} 
-//         onChange={e => setName(e.target.value)} 
+//       <input
+//         value={name}
+//         onChange={e => setName(e.target.value)}
 //         placeholder="Name"
 //       />
-//       <input 
-//         value={email} 
-//         onChange={e => setEmail(e.target.value)} 
+//       <input
+//         value={email}
+//         onChange={e => setEmail(e.target.value)}
 //         placeholder="Email"
 //       />
 //       <button onClick={handleSubmit}>Register</button>
@@ -124,19 +124,19 @@ import Content from './Content';
 
 // export default App;
 // https://www.youtube.com/watch?v=CVaEWBFpxhc&list=PL_-VfJajZj0UXjlKfBwFX73usByw3Ph9Q&index=30
-// function App() {  
-//   const [name, setName] = useState('');  
+// function App() {
+//   const [name, setName] = useState('');
 
-//   return (  
-//     <div style={{ padding: 32 }}>  
-//       <input  
-//         value={name}  
-//         onChange={e => setName(e.target.value)}  
-//       />  
-//       <button onClick={() => setName('Nguyen Van BBB')}>Change</button>  
-//     </div>  
-//   );  
-// }  
+//   return (
+//     <div style={{ padding: 32 }}>
+//       <input
+//         value={name}
+//         onChange={e => setName(e.target.value)}
+//       />
+//       <button onClick={() => setName('Nguyen Van BBB')}>Change</button>
+//     </div>
+//   );
+// }
 
 // export default App;
 
@@ -241,8 +241,8 @@ import Content from './Content';
 //   }
 //   return (
 //     <div style={{ padding: 32 }}>
-    
-//       <input 
+
+//       <input
 //         value={job}
 //         onChange={e => setJob(e.target.value)}
 //         placeholder="Job Name"
@@ -253,7 +253,7 @@ import Content from './Content';
 //           <li key={index}>{job}</li>
 //         ))}
 //       </ul>
-    
+
 //     </div>
 //   )
 // }
@@ -272,10 +272,10 @@ function App() {
   const [show, setShow] = useState(false);
   return (
     <div style={{ padding: 32 }}>
-    <button onClick={()=>setShow(!show)}>Toggle</button>
-      {show && <Content/>}
+      <button onClick={() => setShow(!show)}>Toggle</button>
+      {show && <Content />}
     </div>
-  )
+  );
 }
 
 export default App;

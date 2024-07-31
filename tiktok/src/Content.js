@@ -203,8 +203,6 @@ import { useEffect, useState } from "react";
 //   },
 // ];
 
-
-
 // function Content() {
 //   const [lessonId, setLessoId] = useState(1);
 
@@ -236,5 +234,33 @@ import { useEffect, useState } from "react";
 //     </div>
 //   );
 // }
+function Content() {
+  const [avatar, setAvatar] = useState("");
+  const handlePreviewAvatar = (e) => {
+    const file = e.target.files[0];
+    file.preview = URL.createObjectURL(file)
+    setAvatar(file);
+    e.target.value = null;
+  };
+  useEffect(() => {
+    
+    // Clean up function to prevent memory leaks
+    return () =>{avatar && URL.revokeObjectURL(avatar.preview);}
 
+  }, [avatar]);
+
+  return (
+    <div>
+      <input type="file" onChange={handlePreviewAvatar} />
+      {
+        avatar && (
+          <img
+            src={avatar.preview}
+            alt="avatar"
+          />
+        )
+      }
+    </div>
+  );
+}
 export default Content;
