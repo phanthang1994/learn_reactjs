@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import Content from "./Content";
 
 // export default function Counter() {
@@ -346,50 +353,182 @@ import Content from "./Content";
 
 //========================================
 // useMemo
+// function App() {
+//   const [name, setName] = useState("");
+//   const [price, setPrice] = useState("");
+//   const [products, setProducts] = useState([]);
+//   const nameRef = useRef();
+
+//   const handleSubmit = () => {
+//     setProducts([...products, { name, price: +price }]);
+//     setName("");
+//     setPrice("");
+//     console.log(nameRef.current)
+//     nameRef.current.focus();
+//   };
+
+//   const total = useMemo(() => {
+//     const result = products.reduce((result, prod) => {
+//       console.log("Tính toán lại...");
+//       return result + prod.price;
+//     }, 0);
+//     return result;
+//   }, [products]);
+
+//   console.log(products);
+//   return (
+//     <div style={{ padding: "10px 32px" }}>
+//       <input
+//       ref={nameRef}
+//         value={name}
+//         placeholder="Enter name..."
+//         onChange={(e) => setName(e.target.value)}
+//       />
+//       <br />
+//       <input
+//         value={price}
+//         placeholder="Enter price..."
+//         onChange={(e) => setPrice(e.target.value)}
+//       />
+//       <br />
+//       <button onClick={handleSubmit}>Add</button>
+//       <br />
+//       Total:{total}
+//       <ul>
+//         {products.map((product, index) => (
+//           <li key={index}>
+//             {product.name} - {product.price}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
+
+// useReducer
+// useState
+// 1. Init state: 0
+// 2. Actions: Up (state + 1) / Down (state - 1)
+// useReducer
+// 1. Init state: 0
+// 2. Actions: Up (state + 1) / Down (state - 1)
+// 3. Reducer
+// 4. Dispatch
+
+// Init state
+// const initState = 0;
+
+// //Actions
+// const UP_ACTION = "up";
+// const DOWN_ACTION = "down";
+
+// ==========================
+// Reducer
+
+// const reducer = (state, action) => {
+//   console.log('Reducer running')
+//   switch (action) {
+//     case UP_ACTION:
+//       return state + 1
+//     case DOWN_ACTION:
+//       return state - 1
+//     default:
+//       throw new Error(`Unhandled action type: ${action.type}`)
+//   }
+// }
+// function App() {
+//   const [count, dispatch] = useReducer(reducer, initState)
+//     return (
+//       <div style={{ padding: "10px 32px" }}>
+//        <h1>Count: {count}</h1>
+//         <button onClick={() => dispatch(UP_ACTION)}>Up</button>
+//         <button onClick={() => dispatch(DOWN_ACTION)}>Down</button>
+//       </div>
+//     )
+//   }
+
+//=====================================================================
+// 1. Init state:
+const initState = {
+  job: "",
+  jobList: [],
+};
+
+// 2. Actions:
+const ADD_JOB = "ADD_JOB";
+const SET_JOB = "SET_JOB";
+const DELETE_JOB = "DELETE_JOB";
+const setJob = payload => {
+  return { type: SET_JOB, payload }
+};
+const addJob = payload => {
+  return { type: ADD_JOB, payload }
+};
+const deleteJob = (payload) => {
+  return { type: DELETE_JOB, payload };
+};
+
+// 3. Reducer
+const reducer = (state, action) => {
+  switch (action.type) {
+
+    case ADD_JOB:
+      return {
+        ...state,
+        jobList: [...state.jobList, action.payload],
+      };
+      
+    case SET_JOB:
+      return {
+        ...state,
+        job: action.payload,
+      };
+
+    case DELETE_JOB:
+      console.log("delete", action.payload)
+      const newJobs = [...state.jobList]
+      newJobs.splice(action.payload, 1)
+      var newState = {
+      ...state,
+      jobList: newJobs
+      }
+      return newState;
+    default:
+      throw new Error(`Unhandled action type:`);
+      
+  }
+};
+
+// 4. Dispatch
 function App() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [products, setProducts] = useState([]);
-  const nameRef = useRef();
+  const [state, dispatch] = useReducer(reducer, initState);
+  console.log("state",state);
+  const imputRef = useRef();
 
+  const { job, jobList } = state;
   const handleSubmit = () => {
-    setProducts([...products, { name, price: +price }]);
-    setName("");
-    setPrice("");
-    nameRef.current.focus();
-  };
-
-  const total = useMemo(() => {
-    const result = products.reduce((result, prod) => {
-      console.log("Tính toán lại...");
-      return result + prod.price;
-    }, 0);
-    return result;
-  }, [products]);
-
-  console.log(products);
+    dispatch(addJob(job));
+    dispatch(setJob(""));
+    imputRef.current.focus();
+  }
   return (
-    <div style={{ padding: "10px 32px" }}>
-      <input
-      ref={nameRef}
-        value={name}
-        placeholder="Enter name..."
-        onChange={(e) => setName(e.target.value)}
-      />
-      <br />
-      <input
-        value={price}
-        placeholder="Enter price..."
-        onChange={(e) => setPrice(e.target.value)}
-      />
-      <br />
+    <div style={{ padding: "0 20px" }}>
+      <h3>Todo</h3>
+      <input 
+      ref={imputRef}
+      value={job} placeholder="Enter todo..." 
+      onChange={(e)=>{
+        console.log("e", e.target.value)
+        dispatch(setJob(e.target.value)) 
+        }
+        } />
       <button onClick={handleSubmit}>Add</button>
-      <br />
-      Total:{total}
       <ul>
-        {products.map((product, index) => (
-          <li key={index}>
-            {product.name} - {product.price}
+        {jobList.map((job, index) => (
+          <li 
+          key={index} > 
+          {job}
+          <span onClick={() => dispatch(deleteJob(index))}>X</span> 
           </li>
         ))}
       </ul>
