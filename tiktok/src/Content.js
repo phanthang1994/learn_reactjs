@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useContext, useEffect, useMemo, useState } from "react";
 
 // function Content() {
 //     const [ttile, setTitle] = useState('');
@@ -276,11 +276,34 @@ import { memo, useEffect, useMemo, useState } from "react";
 // }
 // ========================================================
 // useMemo
-function Content({ onIncrease }) {
-  return (
-    <div>
-      <button onClick={onIncrease}>Increase</button>
-    </div>
-  );
-}
-export default memo(Content);
+// function Content({ onIncrease }) {
+//   return (
+//     <div>
+//       <button onClick={onIncrease}>Increase</button>
+//     </div>
+//   );
+// }
+// export default memo(Content);
+
+// function Content({ onIncrease }) {
+//   return (
+//     <div>
+//       <button onClick={onIncrease}>Increase</button>
+//     </div>
+//   );
+// }
+// export default Content;
+
+// =========================================================
+// useContext
+import Paragraph from "./Paragraph"  
+
+function Content() {  
+  return (  
+    <div>  
+      <Paragraph />  
+    </div>  
+  )  
+}  
+
+export default Content

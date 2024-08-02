@@ -1,5 +1,7 @@
 import {
+  createContext,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useReducer,
@@ -449,102 +451,136 @@ import Content from "./Content";
 
 //=====================================================================
 // 1. Init state:
-const initState = {
-  job: "",
-  jobList: [],
-};
+// const initState = {
+//   job: "",
+//   jobList: [],
+// };
 
-// 2. Actions:
-const ADD_JOB = "ADD_JOB";
-const SET_JOB = "SET_JOB";
-const DELETE_JOB = "DELETE_JOB";
-const setJob = payload => {
-  var action =  { type: SET_JOB, payload }
-  return action
-};
-const addJob = payload => {
-  var action = { type: ADD_JOB, payload }
-  return action
-};
-const deleteJob = (payload) => {
-  var action = { type: DELETE_JOB, payload };
-  return action
-};
+// // 2. Actions:
+// const ADD_JOB = "ADD_JOB";
+// const SET_JOB = "SET_JOB";
+// const DELETE_JOB = "DELETE_JOB";
+// const setJob = payload => {
+//   var action =  { type: SET_JOB, payload }
+//   return action
+// };
+// const addJob = payload => {
+//   var action = { type: ADD_JOB, payload }
+//   return action
+// };
+// const deleteJob = (payload) => {
+//   var action = { type: DELETE_JOB, payload };
+//   return action
+// };
 
-// 3. Reducer
-const reducer = (state, action) => {
-  // state: chính là dữ liệu hệ thống initState
-  console.log('Action: ', action);  
-  console.log('Prev state: ', state);
-  switch (action.type) {
+// // 3. Reducer
+// const reducer = (state, action) => {
+//   // state: chính là dữ liệu hệ thống initState
+//   console.log('Action: ', action);  
+//   console.log('Prev state: ', state);
+//   switch (action.type) {
 
-    case ADD_JOB:
-      console.log("New State: ", state)
-      return {
-        ...state,
-        jobList: [...state.jobList, action.payload],
-      };
+//     case ADD_JOB:
+//       console.log("New State: ", state)
+//       return {
+//         ...state,
+//         jobList: [...state.jobList, action.payload],
+//       };
       
-    case SET_JOB:
-      console.log("New State: ", state)
+//     case SET_JOB:
+//       console.log("New State: ", state)
 
-      return {
-        ...state,
-        job: action.payload,
-      };
+//       return {
+//         ...state,
+//         job: action.payload,
+//       };
 
-    case DELETE_JOB:
-      console.log("New State: ", state)
-      const newJobs = [...state.jobList]
-      newJobs.splice(action.payload, 1)
-      var newState = {
-      ...state,
-      jobList: newJobs
-      }
-      return newState;
-    default:
-      throw new Error(`Unhandled action type:`);
+//     case DELETE_JOB:
+//       console.log("New State: ", state)
+//       const newJobs = [...state.jobList]
+//       newJobs.splice(action.payload, 1)
+//       var newState = {
+//       ...state,
+//       jobList: newJobs
+//       }
+//       return newState;
+//     default:
+//       throw new Error(`Unhandled action type:`);
       
-  }
-};
+//   }
+// };
 
-// 4. Dispatch
-function App() {
-  const [state, dispatch] = useReducer(reducer, initState);
-  console.log("state",state);
-  const imputRef = useRef();
+// // 4. Dispatch
+// function App() {
+//   const [state, dispatch] = useReducer(reducer, initState);
+//   console.log("state",state);
+//   const imputRef = useRef();
 
-  const { job, jobList } = state;
+//   const { job, jobList } = state;
 
-  const handleSubmit = () => {
-    console.log("Job add: ", job)
-    dispatch(addJob(job));
-    dispatch(setJob(""));
-    imputRef.current.focus();
-  }
+//   const handleSubmit = () => {
+//     console.log("Job add: ", job)
+//     dispatch(addJob(job));
+//     dispatch(setJob(""));
+//     imputRef.current.focus();
+//   }
 
-  return (
-    <div style={{ padding: "0 20px" }}>
-      <h3>Todo</h3>
-      <input 
-      ref={imputRef}
-      value={job} placeholder="Enter todo..." 
-      onChange={(e)=>{
-        dispatch(setJob(e.target.value)) 
-        }
-        } />
-      <button onClick={handleSubmit}>Add</button>
-      <ul>
-        {jobList.map((job, index) => (
-          <li 
-          key={index} > 
-          {job}
-          <span onClick={() => dispatch(deleteJob(index))}>X</span> 
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+//   return (
+//     <div style={{ padding: "0 20px" }}>
+//       <h3>Todo</h3>
+//       <input 
+//       ref={imputRef}
+//       value={job} placeholder="Enter todo..." 
+//       onChange={(e)=>{
+//         dispatch(setJob(e.target.value)) 
+//         }
+//         } />
+//       <button onClick={handleSubmit}>Add</button>
+//       <ul>
+//         {jobList.map((job, index) => (
+//           <li 
+//           key={index} > 
+//           {job}
+//           <span onClick={() => dispatch(deleteJob(index))}>X</span> 
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
 
-export default App;
+// export default App;
+
+
+// ================================================================
+// useContext
+// 1. Create context  
+// 2. Provider  
+// 3. Consumer
+
+
+// CompA => CompB => CompC  
+// Theme: Dark / Light  
+import './App.css';
+
+export const ThemeContext = createContext()
+console.log("ThemeContext: ", ThemeContext)
+
+function App() {  
+  const [theme, setTheme] = useState('dark')  
+
+  const toggleTheme = () => {  
+    setTheme(theme === 'dark' ? 'light' : 'dark')  
+  }  
+
+  return (  
+    <ThemeContext.Provider value={theme}>  
+      <div style={{ padding: 20 }}>  
+        <button onClick={toggleTheme}>Toggle</button>  
+        <Content />  
+      </div>  
+    </ThemeContext.Provider>  
+  )  
+}  
+
+export default App
