@@ -414,8 +414,8 @@ import Content from "./Content";
 // useReducer
 // 1. Init state: 0
 // 2. Actions: Up (state + 1) / Down (state - 1)
-// 3. Reducer
-// 4. Dispatch
+// 3. Reducer trả về mới state dựa vào action đã đc kích hoạt ở dispatch
+// 4. Dispatch là 1 function để kích hoạt action 
 
 // Init state
 // const initState = 0;
@@ -450,6 +450,7 @@ import Content from "./Content";
 //   }
 
 //=====================================================================
+// Reducer
 // 1. Init state:
 // const initState = {
 //   job: "",
@@ -555,8 +556,8 @@ import Content from "./Content";
 // ================================================================
 // useContext
 // 1. Create context  
-// 2. Provider  
-// 3. Consumer
+// 2. Provider   chứa trong ThemeContext tạo ra bằng createContext()
+// 3. Consumer  chứa trong ThemeContext lấy ra bằng useContext(Context)
 
 
 // CompA => CompB => CompC  
@@ -567,14 +568,14 @@ export const ThemeContext = createContext()
 console.log("ThemeContext: ", ThemeContext)
 
 function App() {  
-  const [theme, setTheme] = useState('dark')  
+  const [themeState, setThemeState] = useState('dark')  
 
   const toggleTheme = () => {  
-    setTheme(theme === 'dark' ? 'light' : 'dark')  
+    setThemeState(themeState === 'dark' ? 'light' : 'dark')  
   }  
 
   return (  
-    <ThemeContext.Provider value={theme}>  
+    <ThemeContext.Provider value={themeState}>  
       <div style={{ padding: 20 }}>  
         <button onClick={toggleTheme}>Toggle</button>  
         <Content />  
