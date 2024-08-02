@@ -459,33 +459,42 @@ const ADD_JOB = "ADD_JOB";
 const SET_JOB = "SET_JOB";
 const DELETE_JOB = "DELETE_JOB";
 const setJob = payload => {
-  return { type: SET_JOB, payload }
+  var action =  { type: SET_JOB, payload }
+  return action
 };
 const addJob = payload => {
-  return { type: ADD_JOB, payload }
+  var action = { type: ADD_JOB, payload }
+  return action
 };
 const deleteJob = (payload) => {
-  return { type: DELETE_JOB, payload };
+  var action = { type: DELETE_JOB, payload };
+  return action
 };
 
 // 3. Reducer
 const reducer = (state, action) => {
+  // state: chính là dữ liệu hệ thống initState
+  console.log('Action: ', action);  
+  console.log('Prev state: ', state);
   switch (action.type) {
 
     case ADD_JOB:
+      console.log("New State: ", state)
       return {
         ...state,
         jobList: [...state.jobList, action.payload],
       };
       
     case SET_JOB:
+      console.log("New State: ", state)
+
       return {
         ...state,
         job: action.payload,
       };
 
     case DELETE_JOB:
-      console.log("delete", action.payload)
+      console.log("New State: ", state)
       const newJobs = [...state.jobList]
       newJobs.splice(action.payload, 1)
       var newState = {
@@ -506,11 +515,14 @@ function App() {
   const imputRef = useRef();
 
   const { job, jobList } = state;
+
   const handleSubmit = () => {
+    console.log("Job add: ", job)
     dispatch(addJob(job));
     dispatch(setJob(""));
     imputRef.current.focus();
   }
+
   return (
     <div style={{ padding: "0 20px" }}>
       <h3>Todo</h3>
@@ -518,7 +530,6 @@ function App() {
       ref={imputRef}
       value={job} placeholder="Enter todo..." 
       onChange={(e)=>{
-        console.log("e", e.target.value)
         dispatch(setJob(e.target.value)) 
         }
         } />
