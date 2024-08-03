@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useImperativeHandle,
   useMemo,
   useReducer,
   useRef,
@@ -415,7 +416,7 @@ import Content from "./Content";
 // 1. Init state: 0
 // 2. Actions: Up (state + 1) / Down (state - 1)
 // 3. Reducer trả về mới state dựa vào action đã đc kích hoạt ở dispatch
-// 4. Dispatch là 1 function để kích hoạt action 
+// 4. Dispatch là 1 function để kích hoạt action
 
 // Init state
 // const initState = 0;
@@ -477,7 +478,7 @@ import Content from "./Content";
 // // 3. Reducer
 // const reducer = (state, action) => {
 //   // state: chính là dữ liệu hệ thống initState
-//   console.log('Action: ', action);  
+//   console.log('Action: ', action);
 //   console.log('Prev state: ', state);
 //   switch (action.type) {
 
@@ -487,7 +488,7 @@ import Content from "./Content";
 //         ...state,
 //         jobList: [...state.jobList, action.payload],
 //       };
-      
+
 //     case SET_JOB:
 //       console.log("New State: ", state)
 
@@ -507,7 +508,7 @@ import Content from "./Content";
 //       return newState;
 //     default:
 //       throw new Error(`Unhandled action type:`);
-      
+
 //   }
 // };
 
@@ -529,20 +530,20 @@ import Content from "./Content";
 //   return (
 //     <div style={{ padding: "0 20px" }}>
 //       <h3>Todo</h3>
-//       <input 
+//       <input
 //       ref={imputRef}
-//       value={job} placeholder="Enter todo..." 
+//       value={job} placeholder="Enter todo..."
 //       onChange={(e)=>{
-//         dispatch(setJob(e.target.value)) 
+//         dispatch(setJob(e.target.value))
 //         }
 //         } />
 //       <button onClick={handleSubmit}>Add</button>
 //       <ul>
 //         {jobList.map((job, index) => (
-//           <li 
-//           key={index} > 
+//           <li
+//           key={index} >
 //           {job}
-//           <span onClick={() => dispatch(deleteJob(index))}>X</span> 
+//           <span onClick={() => dispatch(deleteJob(index))}>X</span>
 //           </li>
 //         ))}
 //       </ul>
@@ -552,36 +553,60 @@ import Content from "./Content";
 
 // export default App;
 
-
 // ================================================================
 // useContext
-// 1. Create context  
+// 1. Create context
 // 2. Provider   chứa trong ThemeContext tạo ra bằng createContext()
 // 3. Consumer  chứa trong ThemeContext lấy ra bằng useContext(Context)
 
+// CompA => CompB => CompC
+// Theme: Dark / Light
+// import './App.css';
 
-// CompA => CompB => CompC  
-// Theme: Dark / Light  
-import './App.css';
+// export const ThemeContext = createContext()
+// console.log("ThemeContext: ", ThemeContext)
 
-export const ThemeContext = createContext()
-console.log("ThemeContext: ", ThemeContext)
+// function App() {
+//   const [themeState, setThemeState] = useState('dark')
 
-function App() {  
-  const [themeState, setThemeState] = useState('dark')  
+//   const toggleTheme = () => {
+//     setThemeState(themeState === 'dark' ? 'light' : 'dark')
+//   }
 
-  const toggleTheme = () => {  
-    setThemeState(themeState === 'dark' ? 'light' : 'dark')  
-  }  
+//   return (
+//     <ThemeContext.Provider value={themeState}>
+//       <div style={{ padding: 20 }}>
+//         <button onClick={toggleTheme}>Toggle</button>
+//         <Content />
+//       </div>
+//     </ThemeContext.Provider>
+//   )
+// }
 
-  return (  
-    <ThemeContext.Provider value={themeState}>  
-      <div style={{ padding: 20 }}>  
-        <button onClick={toggleTheme}>Toggle</button>  
-        <Content />  
-      </div>  
-    </ThemeContext.Provider>  
-  )  
-}  
+// =================================================================
+// useImperativeHandle tùy chinh ref
+import Video from "./Video";
 
-export default App
+function App() {
+  const videoRef = useRef();
+  useEffect(() => {
+    console.log(videoRef.current);
+  });
+  const handlePlay = () => {
+    videoRef.current.play();
+  };
+  const handlePause = () => {
+    videoRef.current.pause();
+  };
+  return (
+    <div>
+      {/* Passing ref={videoRef} to Video component allows 
+      us to interact with the video component through the ref */}
+      <Video ref={videoRef} />
+      <button onClick={handlePlay}>Play</button>
+      <button onClick={handlePause}>Pause</button>
+    </div>
+  );
+}
+
+export default App;
