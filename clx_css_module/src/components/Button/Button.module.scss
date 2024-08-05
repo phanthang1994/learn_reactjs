@@ -1,0 +1,55 @@
+.btn {
+  padding: 4px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+}
+
+// .btn:hover {
+//     opacity: 0.8;
+//     cursor: pointer;
+// }
+
+.primary {
+  color: #fff;
+  background-color: #007bfe;
+}
+
+.secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+.success {
+  color: #fff;
+  background-color: #198754;
+}
+
+.danger {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.warning {
+  color: #fff;
+  background-color: #ffc107;
+}
+
+.info {
+  color: #fff;
+  background-color: #0dcaf0;
+}
+
+.light {
+  color: #000;
+  background-color: #f8f9fa;
+}
+
+.dark {
+  color: #fff;
+  background-color: #212529;
+}
