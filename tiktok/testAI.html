@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[img-0]</title>
+    <style>
+        /* CSS */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .background {
+            width: 100%;
+            height: 500px; 
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        h1 {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        Code dùng claude AI
+    </p>
+    <!-- Container -->
+    <div class="container">
+        <!-- Background hình ảnh -->
+        <div class="background" style="background-image: url('https://example.com/[img-0]')"></div>
+        
+        <!-- Nội dung của trang -->
+        <h1>[img-0]</h1>
+        <p>This is a sample page based on the image [img-0].</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // JavaScript
+        const background = document.querySelector('.background');
+        const imgSrc = 'https://example.com/[img-0]';
+
+        // Tải hình ảnh lên trang web
+        background.style.backgroundImage = `url('${imgSrc}')`;
+
+        // Thêm hiệu ứng khi nhấn vào hình ảnh
+        background.addEventListener('click', function() {
+            alert('You clicked the background!');
+        });
+    </script>
+</body>
+</html>
